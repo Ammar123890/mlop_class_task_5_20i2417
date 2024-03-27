@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Info Submission</title>
+</head>
+<body>
+    <h2>Submit your information</h2>
+    <form id="userInfoForm">
+        Name: <input type="text" id="name"><br>
+        Email: <input type="email" id="email"><br>
+        <input type="button" value="Submit" onclick="submitInfo()">
+    </form>
+
+    <script>
+        function submitInfo() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+
+            fetch('http://localhost:5000/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name: name, email: email}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Submission successful');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
